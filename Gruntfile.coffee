@@ -12,7 +12,7 @@ module.exports = (grunt) ->
   # Read configuration from package.json
   pkgConfig = grunt.file.readJSON("package.json")
   grunt.initConfig
-    pkg: pkgConfig
+    pkg: pkgConfig.public
     webpack:
       options: webpackDistConfig
       dist:

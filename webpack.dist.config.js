@@ -12,13 +12,13 @@ module.exports = {
 
   output: {
     publicPath: '/assets/',
-    path: 'dist/assets/',
+    path: 'public/dist/assets/',
     filename: 'main.js'
   },
 
   debug: false,
   devtool: false,
-  entry: './src/scripts/components/main.jsx',
+  entry: './public/src/scripts/components/main.jsx',
 
   stats: {
     colors: true,
