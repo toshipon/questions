@@ -11,15 +11,15 @@ var webpack = require('webpack');
 module.exports = {
 
   output: {
-    filename: 'main.js',
-    publicPath: '/assets/'
+    path: './public/dist/',
+    publicPath: '/dist/',
+    filename: './scripts/main.js'
   },
 
   cache: true,
   debug: true,
   devtool: false,
   entry: [
-      'webpack/hot/only-dev-server',
       './public/src/scripts/components/main.jsx'
   ],
 

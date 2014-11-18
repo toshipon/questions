@@ -14,40 +14,24 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: pkgConfig.public
     webpack:
-      options: webpackDistConfig
-      dist:
-        cache: false
-
-    "webpack-dev-server":
-      options:
-        hot: true
-        port: 8000
-        webpack: webpackDevConfig
-        publicPath: "/assets/"
-        contentBase: "./<%= pkg.src %>/"
+      dev: webpackDevConfig
+      dist: webpackDistConfig
 
       start:
         keepAlive: true
 
-    connect:
-      options:
-        port: 8000
-
-      dist:
+    watch:
+      dev:
+        files: ["<%= pkg.src %>"]
+        tasks: ["webpack:dev"]
         options:
-          keepalive: true
-          middleware: (connect) ->
-            [mountFolder(connect, pkgConfig.dist)]
+          spawn: false
 
     open:
       options:
         delay: 500
-
       dev:
-        path: "http://localhost:<%= connect.options.port %>/webpack-dev-server/"
-
-      dist:
-        path: "http://localhost:<%= connect.options.port %>/"
+        path: "http://localhost:3000/"
 
     karma:
       unit:
@@ -57,7 +41,6 @@ module.exports = (grunt) ->
       dist:
         files: [
           {
-
             # includes files within path
             flatten: true
             expand: true
@@ -80,18 +63,11 @@ module.exports = (grunt) ->
           src: ["<%= pkg.dist %>"]
         ]
 
-  grunt.registerTask "serve", (target) ->
-    if target is "dist"
-      return grunt.task.run([
-        "build"
-        "open:dist"
-        "connect:dist"
-      ])
-    grunt.task.run [
+  grunt.registerTask "dev", [
+      "webpack:dev"
       "open:dev"
-      "webpack-dev-server"
+      "watch:dev"
     ]
-    return
 
   grunt.registerTask "test", ["karma"]
   grunt.registerTask "build", [

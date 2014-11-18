@@ -1,5 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #content
+    h1= 'If you can see this, something is broken (or JS is not enabled)!!.'
+    p Welcome to #{title}
+  script(type="text/javascript" src="dist/scripts/main.js")
